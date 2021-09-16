@@ -11,9 +11,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NLayerBestPractices.Core.Repositories;
+using NLayerBestPractices.Core.Services;
 using NLayerBestPractices.Core.UnitOfWorks;
 using NLayerBestPractices.Data;
+using NLayerBestPractices.Data.Repositories;
 using NLayerBestPractices.Data.UnitOfWorks;
+using NLayerBestPractices.Service.Services;
 
 namespace NLayerBestPractices.API
 {
@@ -29,6 +33,14 @@ namespace NLayerBestPractices.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //dependency injection
+            //typeOf --> Generic class'larda
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped(typeof(IService<>), typeof(Service.Services.Service<>));
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IProductService, ProductService>();
+
             services.AddDbContext<AppDbContext>(options =>
             {
                 //UseSqlServer --> Sqlserver kullanýlacaðýný haber veriyoruz.
