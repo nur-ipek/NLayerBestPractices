@@ -9,13 +9,13 @@ using NLayerBestPractices.Core.UnitOfWorks;
 
 namespace NLayerBestPractices.Service.Services
 {
-    public class Service<TEntity> : IService<TEntity> where TEntity: class
+    public class ServiceClass<TEntity> : IService<TEntity> where TEntity: class
     {
         public readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<TEntity> _repository;
         //Veri tabanına YANSIMA İŞLEMİnden servise katmanını sorumlu tutuyoruz. (Unit Of Work sayesinde)
         
-        public Service(IUnitOfWork unitOfWork, IRepository<TEntity> repository)
+        public ServiceClass(IUnitOfWork unitOfWork, IRepository<TEntity> repository)
         {
             _unitOfWork = unitOfWork;
             _repository = repository;

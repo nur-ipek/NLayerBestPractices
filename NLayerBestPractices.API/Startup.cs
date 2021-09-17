@@ -18,7 +18,7 @@ using NLayerBestPractices.Data;
 using NLayerBestPractices.Data.Repositories;
 using NLayerBestPractices.Data.UnitOfWorks;
 using NLayerBestPractices.Service.Services;
-
+using AutoMapper;
 namespace NLayerBestPractices.API
 {
     public class Startup
@@ -33,11 +33,12 @@ namespace NLayerBestPractices.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //TODO: Startup ??
+            services.AddAutoMapper(typeof(Startup));
             //dependency injection
             //typeOf --> Generic class'larda
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped(typeof(IService<>), typeof(Service.Services.Service<>));
+            services.AddScoped(typeof(IService<>), typeof(ServiceClass<>));
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
 

@@ -9,7 +9,7 @@ using NLayerBestPractices.Core.UnitOfWorks;
 
 namespace NLayerBestPractices.Service.Services
 {
-    public class ProductService : Service<Product>, IProductService
+    public class ProductService : ServiceClass<Product>, IProductService
     {
         public ProductService(IUnitOfWork unitOfWork, IRepository<Product> repository) : base(unitOfWork, repository)
         {
