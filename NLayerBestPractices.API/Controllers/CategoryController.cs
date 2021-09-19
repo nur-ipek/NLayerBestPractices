@@ -43,6 +43,16 @@ namespace NLayerBestPractices.API.Controllers
             return Ok(_mapper.Map<CategoryDto>(category));
         }
 
+        //ilgili kategorinin bağlı olduğu product'ları getirecek...
+        [HttpGet("{id}/products")]
+        public async Task<IActionResult> GetWithProductsById(int id)
+        {
+            var category = await _categoryService.GetWithProductsByIdAsync(id);
+           
+            return Ok(_mapper.Map<CategoryWithProductDto>(category));
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Save(CategoryDto categoryDto) // Entity almıyorum ve Client'a entity vermiyorumm.
         {
@@ -51,6 +61,27 @@ namespace NLayerBestPractices.API.Controllers
             return Created(string.Empty, _mapper.Map<CategoryDto>(newCategory));
         }
 
+        //istek yapılan url'lerin her birine endpoint deniyor.
+
+        [HttpPut]
+        public IActionResult Update(CategoryDto categoryDto)
+        {
+            _categoryService.Update(_mapper.Map<Category>(categoryDto));
+
+            return NoContent(); //200'lü durum kodları başarılıdır.
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Remove(int id)
+        {
+            var category = _categoryService.GetByIdAsync(id).Result;
+            _categoryService.Remove(category);
+
+            return NoContent();
+        }
+        
+        
 
     }
+
 }
