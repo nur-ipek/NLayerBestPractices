@@ -8,7 +8,7 @@ namespace NLayerBestPractices.API.DTOs
     public class CategoryWithProductDto: CategoryDto
     {
         //CategoryDto sınıfındaki property isimleri Category sınıfındakiler ile aynı olmalıdır.
-        public IEnumerable<ProductDto> Products { get; set; } 
+        public IEnumerable<ProductDto> Products { get; set; }
     }
 }
 

@@ -20,6 +20,9 @@ namespace NLayerBestPractices.API.Mapping
 
             CreateMap<CategoryWithProductDto, Category>();
             CreateMap<Category, CategoryWithProductDto>();
+
+            CreateMap<ProductWithCategoryDto, Product>();
+            CreateMap<Product, ProductWithCategoryDto>();
         }
     }
 }
