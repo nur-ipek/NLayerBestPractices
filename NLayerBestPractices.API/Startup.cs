@@ -57,6 +57,20 @@ namespace NLayerBestPractices.API
             //AddTransient<> --> request esnasýnda unitofwork nesnesine birden fazla kez ihtiyaç duyulursa Addscoped ayný nesne örneði üzerinden devam ederken, addtransient her seferinde yeni bir unitofwork nesnesi üretir.
             //Performnans açýsýndan AddScoped kullanýyoruz.
             services.AddControllers();
+
+
+
+
+            //Sen Validation iþine karýþma ben hallediyorum...
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                //default deðeri false
+                options.SuppressModelStateInvalidFilter = true;
+            }
+            );
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NLayerBestPractices.API.DTOs;
+using NLayerBestPractices.API.Filters;
 using NLayerBestPractices.Core.Models;
 using NLayerBestPractices.Core.Services;
 
@@ -48,6 +49,8 @@ namespace NLayerBestPractices.API.Controllers
             return Ok(_mapper.Map<ProductWithCategoryDto>(category));
         }
 
+        //Yazdığım filter'ı nerede kullanmak istiyorsam o controller üzerine eklemem gerekli !!!
+        [ValidationFilter]
         [HttpPost]
         public async Task<IActionResult> Save(ProductDto productDto)
         {
