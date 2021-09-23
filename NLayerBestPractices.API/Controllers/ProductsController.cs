@@ -10,8 +10,12 @@ using NLayerBestPractices.API.Filters;
 using NLayerBestPractices.Core.Models;
 using NLayerBestPractices.Core.Services;
 
-namespace NLayerBestPractices.API.Controllers
+namespace NLayerBestPractices.API.Controllers 
 {
+
+    //Controller seviyesinde de ValidationFilter yazabiliriliz. 
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class ProductsController : ControllerBase
@@ -33,6 +37,7 @@ namespace NLayerBestPractices.API.Controllers
             return Ok(_mapper.Map<IEnumerable<ProductDto>>(allProducts));
         }
 
+        [ServiceFilter(typeof(NotFoundFilter))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -50,7 +55,7 @@ namespace NLayerBestPractices.API.Controllers
         }
 
         //Yazdığım filter'ı nerede kullanmak istiyorsam o controller üzerine eklemem gerekli !!!
-        [ValidationFilter]
+        //[ValidationFilter]
         [HttpPost]
         public async Task<IActionResult> Save(ProductDto productDto)
         {
@@ -59,6 +64,8 @@ namespace NLayerBestPractices.API.Controllers
             return Created(string.Empty, _mapper.Map<ProductDto>(newProduct));
             //Entity döndürmüyoruz.
         }
+
+        [ServiceFilter(typeof(NotFoundFilter))]  
         [HttpPut]
         public IActionResult Update(ProductDto productDto)
         {

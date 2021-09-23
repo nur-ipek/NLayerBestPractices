@@ -19,6 +19,8 @@ using NLayerBestPractices.Data.Repositories;
 using NLayerBestPractices.Data.UnitOfWorks;
 using NLayerBestPractices.Service.Services;
 using AutoMapper;
+using NLayerBestPractices.API.Filters;
+
 namespace NLayerBestPractices.API
 {
     public class Startup
@@ -36,7 +38,10 @@ namespace NLayerBestPractices.API
             //TODO: Startup ??
             services.AddAutoMapper(typeof(Startup));
             //dependency injection
+
             //typeOf --> Generic class'larda
+            services.AddScoped<NotFoundFilter>();  // ----> filter database nesnesi alýyorsa eklememez gerekmektedir.
+
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IService<>), typeof(ServiceClass<>));
             services.AddScoped<ICategoryService, CategoryService>();
@@ -54,7 +59,9 @@ namespace NLayerBestPractices.API
             // Addscoped --> bir request esnasýnda bir sýnýfýn constructor'ýnda IUnitOfWork ile karþýlaþýrsa UnitOfWork'ten bir nesne örneði alýcak.
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //services.AddTransient<>();
+
             //AddTransient<> --> request esnasýnda unitofwork nesnesine birden fazla kez ihtiyaç duyulursa Addscoped ayný nesne örneði üzerinden devam ederken, addtransient her seferinde yeni bir unitofwork nesnesi üretir.
+
             //Performnans açýsýndan AddScoped kullanýyoruz.
             services.AddControllers();
 
@@ -69,6 +76,14 @@ namespace NLayerBestPractices.API
             }
             );
 
+
+            //Global düzeyde tüm controller'larda ValidationFilter kullanmka istersen eklemeliyim.
+
+            services.AddControllers(o =>
+            {
+                o.Filters.Add(new ValidationFilter());
+
+            });
 
 
         }
