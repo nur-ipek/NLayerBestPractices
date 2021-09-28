@@ -3,15 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLayerBestPractices.API", "NLayerBestPractices.API\NLayerBestPractices.API.csproj", "{4D54A7EB-F03D-4BCF-96C0-292C72426D6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLayerBestPractices.API", "NLayerBestPractices.API\NLayerBestPractices.API.csproj", "{4D54A7EB-F03D-4BCF-96C0-292C72426D6C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLayerBestPractices.Core", "NLayerBestPractices.Core\NLayerBestPractices.Core.csproj", "{C57C016A-228E-4D51-AB14-C19802CBDD48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLayerBestPractices.Core", "NLayerBestPractices.Core\NLayerBestPractices.Core.csproj", "{C57C016A-228E-4D51-AB14-C19802CBDD48}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLayerBestPractices.Data", "NLayerBestPractices.Data\NLayerBestPractices.Data.csproj", "{D852B177-2C6F-45D5-9059-37611C16AED4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLayerBestPractices.Data", "NLayerBestPractices.Data\NLayerBestPractices.Data.csproj", "{D852B177-2C6F-45D5-9059-37611C16AED4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NLayerBestPractices.Service", "NLayerBestPractices.Service\NLayerBestPractices.Service.csproj", "{F48C0EA6-A4BA-4F9C-B2D3-7E35C8FBD0F4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLayerBestPractices.Web", "NLayerBestPractices.Web\NLayerBestPractices.Web.csproj", "{4E6A5A63-64B9-4E67-BF3C-59A8B3DD0B02}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLayerBestPractices.Service", "NLayerBestPractices.Service\NLayerBestPractices.Service.csproj", "{F48C0EA6-A4BA-4F9C-B2D3-7E35C8FBD0F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{F48C0EA6-A4BA-4F9C-B2D3-7E35C8FBD0F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F48C0EA6-A4BA-4F9C-B2D3-7E35C8FBD0F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F48C0EA6-A4BA-4F9C-B2D3-7E35C8FBD0F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E6A5A63-64B9-4E67-BF3C-59A8B3DD0B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E6A5A63-64B9-4E67-BF3C-59A8B3DD0B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E6A5A63-64B9-4E67-BF3C-59A8B3DD0B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E6A5A63-64B9-4E67-BF3C-59A8B3DD0B02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
