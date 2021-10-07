@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using NLayerBestPractices.Web.DTOs;
 using NLayerBestPractices.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -29,9 +30,9 @@ namespace NLayerBestPractices.Web.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(ErrorDto errorDto)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(errorDto);
         }
     }
 }

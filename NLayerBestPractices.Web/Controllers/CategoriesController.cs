@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using NLayerBestPractices.Core.Models;
-using NLayerBestPractices.Core.Services;
-using NLayerBestPractices.Core.UnitOfWorks;
+using NLayerBestPractices.Web.ApiService;
 using NLayerBestPractices.Web.DTOs;
+using NLayerBestPractices.Web.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,20 +12,22 @@ namespace NLayerBestPractices.Web.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly ICategoryService _categoryService;
+        
         private readonly IMapper _mapper;
+        private readonly CategoryApiService _categoryApiService;
 
         //Burada Auoto Mapper'ın dependency injection kütüphanesini indirdiğimiz için IMapper class'ını ctor içerisinde verebiliyoruz !!
         //AS.NET Core Mimarisi DI üzerine kurulu olduğu için kütüphane yüklerken DI olanı yüklemeliyiz.
-        public CategoriesController(ICategoryService categoryService, IMapper mapper)
+        public CategoriesController(IMapper mapper, CategoryApiService categoryApiService)
         {
-            _categoryService = categoryService;
             _mapper = mapper;
+            _categoryApiService = categoryApiService;
         }
 
         public async Task<IActionResult> Index()
+        
         {
-            var list = await _categoryService.GetAllAsync();
+            var list = await _categoryApiService.GetAllAsync();
 
             return View(_mapper.Map<IEnumerable<CategoryDto>>(list));
         }
@@ -39,7 +40,7 @@ namespace NLayerBestPractices.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CategoryDto categoryDto)
         {
-            var category = await _categoryService.AddAsync(_mapper.Map<Category>(categoryDto));
+            var category = await _categoryApiService.AddAsync(categoryDto);
 
             return RedirectToAction("Index");
         }
@@ -47,25 +48,24 @@ namespace NLayerBestPractices.Web.Controllers
         //Güncellenecek olan alanı dolduralım..
         public async Task<IActionResult> Update(int id)
         {
-            var updateCategory = await _categoryService.GetByIdAsync(id);
+            var updateCategory = await _categoryApiService.GetByIdAsync(id);
             return View(_mapper.Map<CategoryDto>(updateCategory));
         }
 
         [HttpPost]
-        public IActionResult Update(CategoryDto categoryDto)
+        public async Task<IActionResult> Update(CategoryDto categoryDto)
         {
-            _categoryService.Update(_mapper.Map<Category>(categoryDto));
+           await  _categoryApiService.Update(categoryDto);
             return RedirectToAction("Index");
         }
 
-        
-        public IActionResult Delete(int id)
+        [ServiceFilter(typeof(NotFoundFilter))]
+        public async Task<IActionResult> Delete(int id)
         {
-            var deleteCategory =  _categoryService.GetByIdAsync(id).Result;
-            _categoryService.Remove(deleteCategory);
+            await _categoryApiService.Delete(id);
             return RedirectToAction("Index");
         }
 
-       
+
     }
 }

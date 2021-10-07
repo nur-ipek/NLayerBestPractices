@@ -1,17 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NLayerBestPractices.Core.Repositories;
-using NLayerBestPractices.Core.Services;
-using NLayerBestPractices.Core.UnitOfWorks;
-using NLayerBestPractices.Data;
-using NLayerBestPractices.Data.Repositories;
-using NLayerBestPractices.Data.UnitOfWorks;
-using NLayerBestPractices.Service.Services;
+using NLayerBestPractices.Web.ApiService;
+using NLayerBestPractices.Web.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,28 +19,23 @@ namespace NLayerBestPractices.Web
         {
             Configuration = configuration;
         }
-
+        
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped(typeof(IService<>), typeof(ServiceClass<>));
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<IProductService, ProductService>();
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            services.AddDbContext<AppDbContext>(options =>
+            //httpclient nesnesini istediðim sýnýfýn ctorunda DI olarak geçebilmem için servis olarak eklemeliyim!
+            //appsetting.json üzerindeki data'ya configuration üzerinden ulaþýyoruz!
+            services.AddHttpClient<CategoryApiService>(opt =>
             {
-                //UseSqlServer --> Sqlserver kullanýlacaðýný haber veriyoruz.
-                options.UseSqlServer(Configuration["ConnectionStrings:SqlConStr"].ToString(),
+                opt.BaseAddress = new Uri(Configuration["baseUrl"]);
+            }
+            );
 
-                    o => o.MigrationsAssembly("NLayerBestPractices.Data"));
+            services.AddScoped<NotFoundFilter>();
+            services.AddAutoMapper(typeof(Startup));
 
-            });
 
             services.AddControllersWithViews();
         }
